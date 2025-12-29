@@ -37,6 +37,11 @@ const Footer = () => {
                   Contact
                 </Link>
               </li>
+              <li>
+                <Link to="/login" className="text-sm text-muted-foreground hover:text-primary transition-colors">
+                  Login
+                </Link>
+              </li>
             </ul>
           </div>
 
@@ -45,19 +50,9 @@ const Footer = () => {
             <h4 className="font-medium text-foreground mb-4">Resources</h4>
             <ul className="space-y-2">
               <li>
-                <a href="#" className="text-sm text-muted-foreground hover:text-primary transition-colors">
-                  Documentation
+                <a href="https://github.com/BlessedBug/socy" target="_blank" rel="noopener noreferrer" className="text-sm text-muted-foreground hover:text-primary transition-colors">
+                  GitHub
                 </a>
-              </li>
-              <li>
-                <a href="#" className="text-sm text-muted-foreground hover:text-primary transition-colors">
-                  GitHub Repository
-                </a>
-              </li>
-              <li>
-                <Link to="/login" className="text-sm text-muted-foreground hover:text-primary transition-colors">
-                  Login
-                </Link>
               </li>
             </ul>
           </div>
@@ -66,7 +61,7 @@ const Footer = () => {
         <div className="mt-12 pt-8 border-t border-border">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <p className="text-sm text-muted-foreground">
-              © {new Date().getFullYear()} AnomAlert. Academic Research Project.
+              © {new Date().getFullYear()} AnomAlert. AnomAlert Project.
             </p>
             <p className="text-sm text-muted-foreground">
               Anomaly Detection and Alerting System
