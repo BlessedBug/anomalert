@@ -6,20 +6,18 @@ const Footer = () => {
     <footer className="border-t border-border bg-card/30">
       <div className="max-w-6xl mx-auto px-6 py-12">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-          {/* Brand */}
           <div className="md:col-span-2">
             <div className="flex items-center gap-2 mb-4">
               <Shield className="w-6 h-6 text-primary" />
               <span className="font-semibold text-foreground">AnomAlert</span>
             </div>
             <p className="text-muted-foreground text-sm leading-relaxed max-w-md">
-              Enterprise-grade anomaly detection and alerting platform. A comprehensive security 
-              monitoring solution for detecting unusual system behavior and suspicious activity 
-              in real-time.
+              Security monitoring platform for operations teams. Collects endpoint telemetry, 
+              detects behavioral anomalies, and surfaces actionable events for analyst review. 
+              Built for real-time visibility into file system, network, process, and USB activity.
             </p>
           </div>
 
-          {/* Navigation */}
           <div>
             <h4 className="font-medium text-foreground mb-4">Navigation</h4>
             <ul className="space-y-2">
@@ -30,7 +28,7 @@ const Footer = () => {
               </li>
               <li>
                 <Link to="/about" className="text-sm text-muted-foreground hover:text-primary transition-colors">
-                  About Us
+                  About
                 </Link>
               </li>
               <li>
@@ -38,15 +36,9 @@ const Footer = () => {
                   Contact
                 </Link>
               </li>
-              <li>
-                <Link to="/login" className="text-sm text-muted-foreground hover:text-primary transition-colors">
-                  Login
-                </Link>
-              </li>
             </ul>
           </div>
 
-          {/* Resources */}
           <div>
             <h4 className="font-medium text-foreground mb-4">Resources</h4>
             <ul className="space-y-2">
@@ -62,10 +54,10 @@ const Footer = () => {
         <div className="mt-12 pt-8 border-t border-border">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <p className="text-sm text-muted-foreground">
-              © {new Date().getFullYear()} AnomAlert. All rights reserved.
+              AnomAlert Security Monitoring Platform
             </p>
             <p className="text-sm text-muted-foreground">
-              Enterprise Anomaly Detection Platform
+              {new Date().getFullYear()}
             </p>
           </div>
         </div>
