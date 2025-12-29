@@ -98,8 +98,8 @@ const Dashboard = () => {
       <div className="flex-1 pt-16 flex flex-col">
         {/* Top Section - 40% */}
         <div className="h-[40%] border-b border-border flex">
-          {/* Left 20% - Users */}
-          <div className="w-[20%] border-r border-border p-6 flex flex-col">
+          {/* Left 50% - Users */}
+          <div className="w-1/2 border-r border-border p-6 flex flex-col">
             <div className="flex items-center gap-2 mb-4">
               <Users className="w-5 h-5 text-primary" />
               <h2 className="font-semibold text-foreground">Users</h2>
@@ -114,21 +114,8 @@ const Dashboard = () => {
             </div>
           </div>
           
-          {/* Middle - Spacing/Status */}
-          <div className="flex-1 p-6 flex items-center justify-center">
-            <div className="glass-card p-8 text-center">
-              <Shield className="w-12 h-12 text-primary mx-auto mb-4" />
-              <h3 className="text-xl font-semibold text-foreground mb-2">AnomAlert Dashboard</h3>
-              <p className="text-muted-foreground text-sm">Real-time security monitoring</p>
-              <div className="mt-4 flex items-center justify-center gap-2">
-                <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
-                <span className="text-xs text-muted-foreground">System Operational</span>
-              </div>
-            </div>
-          </div>
-          
-          {/* Right 20% - Threats Found */}
-          <div className="w-[20%] border-l border-border p-6 flex flex-col">
+          {/* Right 50% - Threats Found */}
+          <div className="w-1/2 p-6 flex flex-col">
             <div className="flex items-center gap-2 mb-4">
               <AlertTriangle className="w-5 h-5 text-destructive" />
               <h2 className="font-semibold text-foreground">Threat Found</h2>
@@ -168,7 +155,7 @@ const Dashboard = () => {
                 logs.map((log) => (
                   <div 
                     key={log.id}
-                    className={`px-3 py-1.5 rounded border ${getSeverityBg(log.severity)} flex items-start gap-4`}
+                    className={`px-3 py-1.5 rounded border ${getSeverityBg(log.severity)} flex items-start gap-4 animate-slide-up`}
                   >
                     <span className="text-muted-foreground flex-shrink-0 w-36">
                       {log.timestamp}
