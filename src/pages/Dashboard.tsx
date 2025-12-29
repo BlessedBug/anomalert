@@ -33,12 +33,6 @@ const Dashboard = () => {
   const [logs, setLogs] = useState<LogEntry[]>([]);
   const [logIndex, setLogIndex] = useState(0);
   const logContainerRef = useRef<HTMLDivElement>(null);
-  
-  // Simulated stats
-  const [stats] = useState({
-    activeUsers: 24,
-    threatsFound: 7
-  });
 
   // Add logs every 0.5 seconds
   useEffect(() => {
@@ -98,16 +92,16 @@ const Dashboard = () => {
       <div className="flex-1 pt-16 flex flex-col">
         {/* Top Section - 40% - Fixed height, no animation */}
         <div className="h-[40%] min-h-[40%] max-h-[40%] border-b border-border flex flex-shrink-0">
-          {/* Left 50% - Users */}
-          <div className="w-1/2 border-r border-border p-6 flex flex-col">
+        {/* Left 50% - Users */}
+          <div className="w-1/2 border-r border-border p-6">
             <div className="flex items-center gap-2 mb-4">
               <Users className="w-5 h-5 text-primary" />
               <h2 className="font-semibold text-foreground">Users</h2>
             </div>
-            <div className="flex-1 flex items-center justify-center">
+            <div className="h-[calc(100%-2rem)] flex items-center justify-center">
               <div className="text-center">
                 <div className="text-5xl font-bold text-foreground mb-2">
-                  {stats.activeUsers}
+                  24
                 </div>
                 <p className="text-sm text-muted-foreground">Active Users</p>
               </div>
@@ -115,15 +109,15 @@ const Dashboard = () => {
           </div>
           
           {/* Right 50% - Threats Found */}
-          <div className="w-1/2 p-6 flex flex-col">
+          <div className="w-1/2 p-6">
             <div className="flex items-center gap-2 mb-4">
               <AlertTriangle className="w-5 h-5 text-destructive" />
               <h2 className="font-semibold text-foreground">Threat Found</h2>
             </div>
-            <div className="flex-1 flex items-center justify-center">
+            <div className="h-[calc(100%-2rem)] flex items-center justify-center">
               <div className="text-center">
                 <div className="text-5xl font-bold text-destructive mb-2">
-                  {stats.threatsFound}
+                  7
                 </div>
                 <p className="text-sm text-muted-foreground">Detected Today</p>
               </div>
