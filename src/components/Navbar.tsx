@@ -14,7 +14,7 @@ const Navbar = () => {
 
   const publicLinks = [
     { path: '/', label: 'Home' },
-    { path: '/about', label: 'About' },
+    { path: '/pricing', label: 'Pricing' },
     { path: '/contact', label: 'Contact' },
   ];
 
