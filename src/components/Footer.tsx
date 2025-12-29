@@ -13,8 +13,9 @@ const Footer = () => {
               <span className="font-semibold text-foreground">AnomAlert</span>
             </div>
             <p className="text-muted-foreground text-sm leading-relaxed max-w-md">
-              Anomaly Detection and Alerting System. A security monitoring solution 
-              for detecting unusual system behavior and suspicious activity in real-time.
+              Enterprise-grade anomaly detection and alerting platform. A comprehensive security 
+              monitoring solution for detecting unusual system behavior and suspicious activity 
+              in real-time.
             </p>
           </div>
 
@@ -61,10 +62,10 @@ const Footer = () => {
         <div className="mt-12 pt-8 border-t border-border">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <p className="text-sm text-muted-foreground">
-              © {new Date().getFullYear()} AnomAlert. AnomAlert Project.
+              © {new Date().getFullYear()} AnomAlert. All rights reserved.
             </p>
             <p className="text-sm text-muted-foreground">
-              Anomaly Detection and Alerting System
+              Enterprise Anomaly Detection Platform
             </p>
           </div>
         </div>

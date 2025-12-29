@@ -47,7 +47,7 @@ const Contact = () => {
       setIsSubmitted(true);
       toast({
         title: "Message Sent",
-        description: "Thank you for your interest. We will get back to you soon.",
+        description: "Thank you for your interest. Our team will contact you shortly.",
       });
     }
   };
@@ -73,8 +73,8 @@ const Contact = () => {
               Thank You
             </h1>
             <p className="text-muted-foreground mb-8">
-              Your message has been received. We will review your inquiry and respond 
-              as soon as possible.
+              Your message has been received. Our team will review your inquiry and respond 
+              within one business day.
             </p>
             <Button
               onClick={() => {
@@ -104,8 +104,9 @@ const Contact = () => {
             Contact Us
           </h1>
           <p className="text-muted-foreground text-lg leading-relaxed">
-            Interested in AnomAlert? Have questions about the project? 
-            Fill out the form below and we will get back to you.
+            Interested in AnomAlert for your organization? Have questions about our platform 
+            capabilities or deployment options? Complete the form below and our team will 
+            reach out to discuss how AnomAlert can address your security monitoring needs.
           </p>
         </div>
       </section>
