@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { Shield, User, Lock, Eye, EyeOff, Mail } from 'lucide-react';
+import { Lock, Eye, EyeOff, Mail } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -8,6 +8,7 @@ import Navbar from '@/components/Navbar';
 import { useAuth } from '@/contexts/AuthContext';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
+import logo from '@/assets/logo.png';
 
 const Login = () => {
   const navigate = useNavigate();
@@ -70,8 +71,8 @@ const Login = () => {
       
       <div className="w-full max-w-md relative z-10 mx-auto pt-32 px-4">
         <div className="text-center mb-8">
-          <Link to="/" className="inline-flex items-center gap-2">
-            <Shield className="w-10 h-10 text-primary" />
+          <Link to="/" className="inline-flex items-center gap-3">
+            <img src={logo} alt="AnomAlert Logo" className="w-12 h-12" />
             <span className="text-2xl font-bold text-foreground">AnomAlert</span>
           </Link>
           <p className="text-muted-foreground mt-2">
@@ -80,17 +81,6 @@ const Login = () => {
         </div>
 
         <div className="glass-card p-8">
-          <div className="space-y-4 text-muted-foreground text-sm leading-relaxed mb-6">
-            <p>
-              Access to the AnomAlert dashboard requires authentication. Analysts use this portal to 
-              review collected logs, investigate detected anomalies, and monitor endpoint activity 
-              across the organization. The dashboard displays real-time data from deployed agents, 
-              including file system events, network connections, and process execution records. 
-              Authentication ensures that only authorized personnel can view sensitive security 
-              telemetry and respond to potential incidents. If you do not have credentials, contact 
-              your system administrator to request access.
-            </p>
-          </div>
 
           <form onSubmit={handleSubmit} className="space-y-6">
             <div className="space-y-2">

@@ -1,8 +1,9 @@
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { Shield, Menu, X, LogOut } from 'lucide-react';
+import { Menu, X, LogOut } from 'lucide-react';
 import { useState } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
 import { Button } from '@/components/ui/button';
+import logo from '@/assets/logo.png';
 
 const Navbar = () => {
   const location = useLocation();
@@ -36,7 +37,7 @@ const Navbar = () => {
       <div className="max-w-6xl mx-auto px-6">
         <div className="flex items-center justify-between h-16">
           <Link to="/" className="flex items-center gap-2">
-            <Shield className="w-6 h-6 text-primary" />
+            <img src={logo} alt="AnomAlert Logo" className="w-8 h-8" />
             <span className="font-semibold text-foreground">AnomAlert</span>
           </Link>
 
