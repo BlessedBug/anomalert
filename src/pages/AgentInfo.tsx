@@ -1,8 +1,29 @@
-import { Server, Database, Activity, BarChart3, ArrowRight, Shield, Lock, Wifi } from 'lucide-react';
+import { Server, Database, Activity, BarChart3, ArrowRight, Shield, Lock, Wifi, Download } from 'lucide-react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
+import { Button } from '@/components/ui/button';
+import { agentApi } from '@/lib/api';
+import { useToast } from '@/hooks/use-toast';
 
 const AgentInfo = () => {
+  const { toast } = useToast();
+
+  const handleDownload = async () => {
+    try {
+      await agentApi.downloadAgent();
+      toast({
+        title: 'Download Started',
+        description: 'The agent installer is downloading.',
+      });
+    } catch (error) {
+      toast({
+        title: 'Download Failed',
+        description: 'Could not download the agent. Please try again.',
+        variant: 'destructive',
+      });
+    }
+  };
+
   const workflowSteps = [
     { label: 'Log Collection', icon: Database, color: 'bg-primary' },
     { label: 'Backend Processing', icon: Server, color: 'bg-cyan-500' },
@@ -16,15 +37,28 @@ const AgentInfo = () => {
       
       <section className="pt-32 pb-16 px-6">
         <div className="max-w-4xl mx-auto">
-          <h1 className="text-3xl md:text-4xl font-semibold text-foreground mb-4">
-            Agent Documentation
-          </h1>
+          <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-6 mb-8">
+            <div>
+              <h1 className="text-3xl md:text-4xl font-semibold text-foreground mb-4">
+                Agent Documentation
+              </h1>
+              <div className="text-muted-foreground text-lg leading-relaxed">
+                <p>
+                  This page explains what the AnomAlert agent collects and how that data supports 
+                  security monitoring. The agent is a software component installed on endpoints 
+                  that captures security-relevant events and transmits them to the central backend 
+                  for analysis.
+                </p>
+              </div>
+            </div>
+            <Button onClick={handleDownload} size="lg" className="flex-shrink-0">
+              <Download className="w-5 h-5 mr-2" />
+              Download Agent
+            </Button>
+          </div>
           <div className="space-y-4 text-muted-foreground text-lg leading-relaxed">
             <p>
-              This page explains what the AnomAlert agent collects and how that data supports 
-              security monitoring. The agent is a software component installed on endpoints 
-              that captures security-relevant events and transmits them to the central backend 
-              for analysis. Understanding what the agent reports helps analysts interpret 
+              Understanding what the agent reports helps analysts interpret 
               dashboard events and investigate detected anomalies.
             </p>
             <p>
