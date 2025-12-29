@@ -8,40 +8,40 @@
 
 @layer base {
   :root {
-    --background: 220 16% 6%;
-    --foreground: 210 20% 95%;
+    --background: 210 20% 98%;
+    --foreground: 220 16% 10%;
 
-    --card: 220 16% 10%;
-    --card-foreground: 210 20% 95%;
+    --card: 0 0% 100%;
+    --card-foreground: 220 16% 10%;
 
-    --popover: 220 16% 8%;
-    --popover-foreground: 210 20% 95%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 220 16% 10%;
 
-    --primary: 168 84% 58%;
-    --primary-foreground: 220 16% 6%;
+    --primary: 168 84% 40%;
+    --primary-foreground: 0 0% 100%;
 
-    --secondary: 220 14% 14%;
-    --secondary-foreground: 210 20% 90%;
+    --secondary: 210 20% 94%;
+    --secondary-foreground: 220 16% 20%;
 
-    --muted: 220 14% 16%;
-    --muted-foreground: 215 16% 55%;
+    --muted: 210 20% 92%;
+    --muted-foreground: 215 16% 45%;
 
-    --accent: 168 84% 58%;
-    --accent-foreground: 220 16% 6%;
+    --accent: 168 84% 40%;
+    --accent-foreground: 0 0% 100%;
 
     --destructive: 0 72% 51%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 220 14% 18%;
-    --input: 220 14% 18%;
-    --ring: 168 84% 58%;
+    --border: 210 20% 88%;
+    --input: 210 20% 88%;
+    --ring: 168 84% 40%;
 
     --radius: 0.5rem;
 
     /* Custom colors */
-    --glow: 168 84% 58%;
-    --surface: 220 16% 12%;
-    --surface-hover: 220 16% 16%;
+    --glow: 168 84% 40%;
+    --surface: 210 20% 96%;
+    --surface-hover: 210 20% 92%;
   }
 
   .dark {
@@ -72,6 +72,10 @@
     --border: 220 14% 18%;
     --input: 220 14% 18%;
     --ring: 168 84% 58%;
+
+    --glow: 168 84% 58%;
+    --surface: 220 16% 12%;
+    --surface-hover: 220 16% 16%;
   }
 }
 

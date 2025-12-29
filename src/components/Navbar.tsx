@@ -3,6 +3,7 @@ import { Menu, X, LogOut } from 'lucide-react';
 import { useState } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
 import { Button } from '@/components/ui/button';
+import ThemeToggle from '@/components/ThemeToggle';
 import logo from '@/assets/logo.png';
 
 const Navbar = () => {
@@ -41,7 +42,7 @@ const Navbar = () => {
             <span className="font-semibold text-foreground">AnomAlert</span>
           </Link>
 
-          <div className="hidden md:flex items-center gap-8">
+          <div className="hidden md:flex items-center gap-6">
             {navLinks.map((link) => (
               <Link
                 key={link.path}
@@ -77,6 +78,7 @@ const Navbar = () => {
                 Login
               </Link>
             )}
+            <ThemeToggle />
           </div>
 
           <button
@@ -125,6 +127,9 @@ const Navbar = () => {
                   Login
                 </Link>
               )}
+              <div className="pt-2">
+                <ThemeToggle />
+              </div>
             </div>
           </div>
         )}
