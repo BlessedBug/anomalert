@@ -1,8 +1,14 @@
-import { Check } from 'lucide-react';
+import { Check, ChevronDown } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { Button } from '@/components/ui/button';
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from '@/components/ui/accordion';
 
 const Pricing = () => {
   const plans = [
@@ -54,6 +60,41 @@ const Pricing = () => {
         'Adaptable to organization-specific requirements',
         'Scope and pricing defined based on deployment needs',
       ],
+    },
+  ];
+
+  const faqs = [
+    {
+      question: 'What happens when I exceed my plan member limit?',
+      answer: 'If you exceed the member limit for your plan, new agent installations will be queued until you upgrade or remove inactive agents. Existing agents will continue to function normally. We recommend upgrading before reaching capacity to ensure uninterrupted coverage.',
+    },
+    {
+      question: 'How long is log data retained?',
+      answer: 'Log retention varies by plan. The Team Plan includes 30 days of retention, Growth Plan provides 90 days, and Enterprise plans offer customizable retention periods based on your compliance requirements. Historical data beyond the retention period is archived and available upon request.',
+    },
+    {
+      question: 'Can I upgrade or downgrade my plan?',
+      answer: 'Yes, you can change plans at any time. Upgrades take effect immediately with prorated billing. Downgrades take effect at the start of your next billing cycle. Your data and configurations are preserved during plan changes.',
+    },
+    {
+      question: 'What is included in the initial setup?',
+      answer: 'All plans include agent deployment assistance, initial configuration review, and access to documentation. Growth and Enterprise plans include a dedicated onboarding session to review your security requirements and optimize detection rules for your environment.',
+    },
+    {
+      question: 'How are security events reviewed?',
+      answer: 'Events are processed by the analysis engine and prioritized by severity. Review times indicate maximum delay before an event is analyzed after ingestion. Higher-tier plans have faster processing pipelines and dedicated resources for reduced latency.',
+    },
+    {
+      question: 'What support is included?',
+      answer: 'Team Plan includes email support with 24-hour response time. Growth Plan adds priority email support and access to scheduled calls. Enterprise Plan includes dedicated support channels, faster response SLAs, and direct access to technical specialists.',
+    },
+    {
+      question: 'Is there a free trial available?',
+      answer: 'We offer a 14-day evaluation period for qualified organizations. Contact us to discuss your requirements and set up a trial deployment. Trial includes full feature access on the Growth Plan tier.',
+    },
+    {
+      question: 'What operating systems are supported?',
+      answer: 'The agent supports Windows 10 and later, Windows Server 2016 and later, and major Linux distributions including Ubuntu, CentOS, and Debian. macOS support is available in beta. Contact us for specific version requirements.',
     },
   ];
 
@@ -109,6 +150,31 @@ const Pricing = () => {
               </div>
             ))}
           </div>
+        </div>
+      </section>
+
+      <section className="py-16 px-6 border-t border-border">
+        <div className="max-w-4xl mx-auto">
+          <h2 className="text-2xl font-semibold text-foreground mb-8 text-center">
+            Frequently Asked Questions
+          </h2>
+          
+          <Accordion type="single" collapsible className="space-y-4">
+            {faqs.map((faq, index) => (
+              <AccordionItem 
+                key={index} 
+                value={`faq-${index}`}
+                className="glass-card border border-border px-6"
+              >
+                <AccordionTrigger className="text-left text-foreground hover:no-underline py-4">
+                  {faq.question}
+                </AccordionTrigger>
+                <AccordionContent className="text-muted-foreground pb-4">
+                  {faq.answer}
+                </AccordionContent>
+              </AccordionItem>
+            ))}
+          </Accordion>
         </div>
       </section>
 
