@@ -14,7 +14,6 @@ const Login = () => {
   const navigate = useNavigate();
   const { user } = useAuth();
   const { toast } = useToast();
-  const [isSignUp, setIsSignUp] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
@@ -31,28 +30,12 @@ const Login = () => {
     setIsLoading(true);
 
     try {
-      if (isSignUp) {
-        const { error } = await supabase.auth.signUp({
-          email,
-          password,
-          options: {
-            emailRedirectTo: `${window.location.origin}/`,
-          },
-        });
-        if (error) throw error;
-        toast({
-          title: 'Account created',
-          description: 'You can now sign in with your credentials.',
-        });
-        setIsSignUp(false);
-      } else {
-        const { error } = await supabase.auth.signInWithPassword({
-          email,
-          password,
-        });
-        if (error) throw error;
-        navigate('/dashboard');
-      }
+      const { error } = await supabase.auth.signInWithPassword({
+        email,
+        password,
+      });
+      if (error) throw error;
+      navigate('/dashboard');
     } catch (error: any) {
       toast({
         title: 'Error',
@@ -76,12 +59,11 @@ const Login = () => {
             <span className="text-2xl font-bold text-foreground">AnomAlert</span>
           </Link>
           <p className="text-muted-foreground mt-2">
-            {isSignUp ? 'Create your account' : 'Sign in to your account'}
+            Sign in to your account
           </p>
         </div>
 
         <div className="glass-card p-8">
-
           <form onSubmit={handleSubmit} className="space-y-6">
             <div className="space-y-2">
               <Label htmlFor="email">Email</Label>
@@ -124,34 +106,18 @@ const Login = () => {
             </div>
 
             <Button type="submit" className="w-full" disabled={isLoading}>
-              {isLoading ? 'Processing...' : isSignUp ? 'Create Account' : 'Sign In'}
+              {isLoading ? 'Signing in...' : 'Sign In'}
             </Button>
           </form>
 
           <div className="mt-6 text-center text-sm text-muted-foreground">
-            {isSignUp ? (
-              <>
-                Already have an account?{' '}
-                <button
-                  type="button"
-                  onClick={() => setIsSignUp(false)}
-                  className="text-primary hover:underline"
-                >
-                  Sign In
-                </button>
-              </>
-            ) : (
-              <>
-                Need an account?{' '}
-                <button
-                  type="button"
-                  onClick={() => setIsSignUp(true)}
-                  className="text-primary hover:underline"
-                >
-                  Create Account
-                </button>
-              </>
-            )}
+            Need access?{' '}
+            <Link
+              to="/contact"
+              className="text-primary hover:underline"
+            >
+              Contact us
+            </Link>
           </div>
         </div>
       </div>
