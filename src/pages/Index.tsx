@@ -17,7 +17,7 @@ const Index = () => {
             AnomAlert
           </h1>
           <p className="text-xl text-primary mb-8">
-            Security Monitoring for Operations Teams
+            Enterprise Security Monitoring for Companies & Organizations
           </p>
           <div className="text-muted-foreground text-lg leading-relaxed max-w-3xl mx-auto space-y-4">
             <p>
