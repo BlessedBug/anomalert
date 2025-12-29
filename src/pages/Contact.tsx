@@ -1,7 +1,8 @@
 import { useState } from 'react';
-import { Building2, Mail, Users, Send, CheckCircle } from 'lucide-react';
+import { Building2, Mail, Users, Send, CheckCircle, FileText } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
@@ -10,9 +11,10 @@ import { useToast } from '@/hooks/use-toast';
 const Contact = () => {
   const { toast } = useToast();
   const [formData, setFormData] = useState({
-    companyName: '',
+    organizationName: '',
     email: '',
-    teamSize: ''
+    numberOfEmployees: '',
+    description: ''
   });
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
@@ -20,8 +22,8 @@ const Contact = () => {
   const validateForm = () => {
     const newErrors: Record<string, string> = {};
     
-    if (!formData.companyName.trim()) {
-      newErrors.companyName = 'Company name is required';
+    if (!formData.organizationName.trim()) {
+      newErrors.organizationName = 'Organization name is required';
     }
     
     if (!formData.email.trim()) {
@@ -30,10 +32,10 @@ const Contact = () => {
       newErrors.email = 'Please enter a valid email address';
     }
     
-    if (!formData.teamSize.trim()) {
-      newErrors.teamSize = 'Team size is required';
-    } else if (isNaN(Number(formData.teamSize)) || Number(formData.teamSize) < 1) {
-      newErrors.teamSize = 'Please enter a valid number';
+    if (!formData.numberOfEmployees.trim()) {
+      newErrors.numberOfEmployees = 'Number of employees is required';
+    } else if (isNaN(Number(formData.numberOfEmployees)) || Number(formData.numberOfEmployees) < 1) {
+      newErrors.numberOfEmployees = 'Please enter a valid number';
     }
     
     setErrors(newErrors);
@@ -46,13 +48,13 @@ const Contact = () => {
     if (validateForm()) {
       setIsSubmitted(true);
       toast({
-        title: "Message Sent",
-        description: "Your request has been received. We will respond within one business day.",
+        title: "Request Submitted",
+        description: "We will respond within one business day.",
       });
     }
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
     if (errors[name]) {
@@ -73,13 +75,12 @@ const Contact = () => {
               Request Received
             </h1>
             <p className="text-muted-foreground mb-8">
-              Your message has been submitted. We will review your requirements and respond 
-              within one business day with next steps.
+              We will review your requirements and respond within one business day.
             </p>
             <Button
               onClick={() => {
                 setIsSubmitted(false);
-                setFormData({ companyName: '', email: '', teamSize: '' });
+                setFormData({ organizationName: '', email: '', numberOfEmployees: '', description: '' });
               }}
               variant="outline"
               className="border-border text-foreground hover:bg-secondary"
@@ -102,64 +103,39 @@ const Contact = () => {
           <h1 className="text-3xl md:text-4xl font-semibold text-foreground mb-4">
             Contact
           </h1>
-          <div className="space-y-4 text-muted-foreground text-lg leading-relaxed">
-            <p>
-              Use the form below to request access or ask questions about the platform. 
-              Provide your organization name, contact email, and team size so we can 
-              understand your requirements. We will respond within one business day to 
-              discuss deployment options and answer technical questions.
-            </p>
-            <p>
-              If you are evaluating the platform for your security operations, include 
-              details about your current monitoring setup and what gaps you are trying 
-              to address. This helps us provide relevant information about how AnomAlert 
-              integrates with existing infrastructure and what data sources are supported.
-            </p>
-          </div>
+          <p className="text-muted-foreground text-lg leading-relaxed">
+            Request access or ask questions about the platform. We respond within one business day.
+          </p>
         </div>
       </section>
 
       <section className="py-16 px-6">
         <div className="max-w-lg mx-auto">
           <div className="glass-card p-8">
-            <div className="space-y-4 text-muted-foreground text-sm leading-relaxed mb-6">
-              <p>
-                Deployment typically involves installing agents on monitored endpoints and 
-                configuring the central backend. Agent installation is automated and takes 
-                less than five minutes per machine. The backend can be hosted on your 
-                infrastructure or accessed through our managed service.
-              </p>
-              <p>
-                After submitting this form, we will schedule a technical discussion to 
-                review your environment, explain integration requirements, and answer 
-                questions about data collection, retention, and analysis capabilities.
-              </p>
-            </div>
-            
             <form onSubmit={handleSubmit} className="space-y-6">
               <div className="space-y-2">
-                <Label htmlFor="companyName" className="text-foreground flex items-center gap-2">
+                <Label htmlFor="organizationName" className="text-foreground flex items-center gap-2">
                   <Building2 className="w-4 h-4 text-muted-foreground" />
                   Organization Name
                 </Label>
                 <Input
-                  id="companyName"
-                  name="companyName"
+                  id="organizationName"
+                  name="organizationName"
                   type="text"
-                  value={formData.companyName}
+                  value={formData.organizationName}
                   onChange={handleChange}
                   placeholder="Enter your organization name"
                   className="bg-secondary/50 border-border focus:border-primary"
                 />
-                {errors.companyName && (
-                  <p className="text-destructive text-sm">{errors.companyName}</p>
+                {errors.organizationName && (
+                  <p className="text-destructive text-sm">{errors.organizationName}</p>
                 )}
               </div>
 
               <div className="space-y-2">
                 <Label htmlFor="email" className="text-foreground flex items-center gap-2">
                   <Mail className="w-4 h-4 text-muted-foreground" />
-                  Email Address
+                  Email
                 </Label>
                 <Input
                   id="email"
@@ -176,23 +152,38 @@ const Contact = () => {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="teamSize" className="text-foreground flex items-center gap-2">
+                <Label htmlFor="numberOfEmployees" className="text-foreground flex items-center gap-2">
                   <Users className="w-4 h-4 text-muted-foreground" />
-                  Number of Endpoints
+                  Number of Employees
                 </Label>
                 <Input
-                  id="teamSize"
-                  name="teamSize"
+                  id="numberOfEmployees"
+                  name="numberOfEmployees"
                   type="number"
                   min="1"
-                  value={formData.teamSize}
+                  value={formData.numberOfEmployees}
                   onChange={handleChange}
-                  placeholder="Approximate number of machines to monitor"
+                  placeholder="Enter your organization size"
                   className="bg-secondary/50 border-border focus:border-primary"
                 />
-                {errors.teamSize && (
-                  <p className="text-destructive text-sm">{errors.teamSize}</p>
+                {errors.numberOfEmployees && (
+                  <p className="text-destructive text-sm">{errors.numberOfEmployees}</p>
                 )}
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="description" className="text-foreground flex items-center gap-2">
+                  <FileText className="w-4 h-4 text-muted-foreground" />
+                  Description
+                </Label>
+                <Textarea
+                  id="description"
+                  name="description"
+                  value={formData.description}
+                  onChange={handleChange}
+                  placeholder="Tell us about your requirements (optional)"
+                  className="bg-secondary/50 border-border focus:border-primary min-h-[100px]"
+                />
               </div>
 
               <Button

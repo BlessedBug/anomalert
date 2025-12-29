@@ -8,7 +8,7 @@ import Navbar from '@/components/Navbar';
 import { useAuth } from '@/contexts/AuthContext';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
-import logo from '@/assets/logo.png';
+import Logo from '@/components/Logo';
 
 const Login = () => {
   const navigate = useNavigate();
@@ -72,7 +72,7 @@ const Login = () => {
       <div className="w-full max-w-md relative z-10 mx-auto pt-32 px-4">
         <div className="text-center mb-8">
           <Link to="/" className="inline-flex items-center gap-3">
-            <img src={logo} alt="AnomAlert Logo" className="w-12 h-12" />
+            <Logo size={48} />
             <span className="text-2xl font-bold text-foreground">AnomAlert</span>
           </Link>
           <p className="text-muted-foreground mt-2">
