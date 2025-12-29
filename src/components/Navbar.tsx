@@ -27,6 +27,14 @@ const Navbar = () => {
 
   const isActive = (path: string) => location.pathname === path;
 
+  const handleNavClick = (e: React.MouseEvent, path: string) => {
+    if (path === '/' && location.pathname === '/') {
+      e.preventDefault();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+    setMobileMenuOpen(false);
+  };
+
   const handleSignOut = async () => {
     await signOut();
     navigate('/');
