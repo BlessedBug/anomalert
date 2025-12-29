@@ -149,7 +149,7 @@ const Dashboard = () => {
                 logs.map((log) => (
                   <div 
                     key={log.id}
-                    className={`px-3 py-1.5 rounded border ${getSeverityBg(log.severity)} flex items-start gap-4 animate-slide-up`}
+                    className={`px-3 py-1.5 rounded border ${getSeverityBg(log.severity)} flex items-start gap-4`}
                   >
                     <span className="text-muted-foreground flex-shrink-0 w-36">
                       {log.timestamp}

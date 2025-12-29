@@ -4,7 +4,7 @@ import { Shield, User, Lock, Eye, EyeOff } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-
+import Navbar from '@/components/Navbar';
 const Login = () => {
   const navigate = useNavigate();
   const [username, setUsername] = useState('');
@@ -18,11 +18,12 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background flex items-center justify-center p-4">
+    <div className="min-h-screen bg-background">
+      <Navbar />
       {/* Background Effect */}
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,hsl(var(--primary)/0.1),transparent_50%)]" />
       
-      <div className="w-full max-w-md relative z-10">
+      <div className="w-full max-w-md relative z-10 mx-auto pt-32 px-4">
         {/* Logo */}
         <div className="text-center mb-8">
           <Link to="/" className="inline-flex items-center gap-2">
