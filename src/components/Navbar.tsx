@@ -27,6 +27,14 @@ const Navbar = () => {
 
   const isActive = (path: string) => location.pathname === path;
 
+  const handleNavClick = (e: React.MouseEvent, path: string) => {
+    if (path === '/' && location.pathname === '/') {
+      e.preventDefault();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+    setMobileMenuOpen(false);
+  };
+
   const handleSignOut = async () => {
     await signOut();
     navigate('/');
@@ -47,6 +55,7 @@ const Navbar = () => {
               <Link
                 key={link.path}
                 to={link.path}
+                onClick={(e) => handleNavClick(e, link.path)}
                 className={`text-sm transition-colors ${
                   isActive(link.path)
                     ? 'text-primary'
@@ -96,7 +105,7 @@ const Navbar = () => {
                 <Link
                   key={link.path}
                   to={link.path}
-                  onClick={() => setMobileMenuOpen(false)}
+                  onClick={(e) => handleNavClick(e, link.path)}
                   className={`text-sm transition-colors ${
                     isActive(link.path)
                       ? 'text-primary'
