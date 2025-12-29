@@ -1,21 +1,15 @@
 import { Link, useLocation } from 'react-router-dom';
-import { useAuth } from '@/contexts/AuthContext';
 import { Shield, Menu, X } from 'lucide-react';
 import { useState } from 'react';
-import { Button } from '@/components/ui/button';
 
 const Navbar = () => {
   const location = useLocation();
-  const { isAuthenticated, logout } = useAuth();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const navLinks = [
     { path: '/', label: 'Home' },
     { path: '/about', label: 'About' },
     { path: '/contact', label: 'Contact' },
-  ];
-
-  const privateLinks = [
     { path: '/agent-info', label: 'Agent Info' },
     { path: '/dashboard', label: 'Dashboard' },
   ];
@@ -47,43 +41,6 @@ const Navbar = () => {
                 {link.label}
               </Link>
             ))}
-            
-            {isAuthenticated && privateLinks.map((link) => (
-              <Link
-                key={link.path}
-                to={link.path}
-                className={`text-sm transition-colors ${
-                  isActive(link.path)
-                    ? 'text-primary'
-                    : 'text-muted-foreground hover:text-foreground'
-                }`}
-              >
-                {link.label}
-              </Link>
-            ))}
-          </div>
-
-          {/* Auth Button */}
-          <div className="hidden md:flex items-center gap-4">
-            {isAuthenticated ? (
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={logout}
-                className="border-border text-foreground hover:bg-secondary"
-              >
-                Logout
-              </Button>
-            ) : (
-              <Link to="/login">
-                <Button
-                  size="sm"
-                  className="bg-primary text-primary-foreground hover:bg-primary/90"
-                >
-                  Login
-                </Button>
-              </Link>
-            )}
           </div>
 
           {/* Mobile Menu Button */}
@@ -113,41 +70,6 @@ const Navbar = () => {
                   {link.label}
                 </Link>
               ))}
-              
-              {isAuthenticated && privateLinks.map((link) => (
-                <Link
-                  key={link.path}
-                  to={link.path}
-                  onClick={() => setMobileMenuOpen(false)}
-                  className={`text-sm transition-colors ${
-                    isActive(link.path)
-                      ? 'text-primary'
-                      : 'text-muted-foreground hover:text-foreground'
-                  }`}
-                >
-                  {link.label}
-                </Link>
-              ))}
-
-              {isAuthenticated ? (
-                <button
-                  onClick={() => {
-                    logout();
-                    setMobileMenuOpen(false);
-                  }}
-                  className="text-sm text-muted-foreground hover:text-foreground text-left"
-                >
-                  Logout
-                </button>
-              ) : (
-                <Link
-                  to="/login"
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="text-sm text-primary"
-                >
-                  Login
-                </Link>
-              )}
             </div>
           </div>
         )}
