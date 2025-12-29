@@ -28,7 +28,7 @@ const Navbar = () => {
   const isActive = (path: string) => location.pathname === path;
 
   const handleNavClick = (e: React.MouseEvent, path: string) => {
-    if (path === '/' && location.pathname === '/') {
+    if (location.pathname === path) {
       e.preventDefault();
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
