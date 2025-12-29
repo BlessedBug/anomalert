@@ -9,7 +9,7 @@ const About = () => {
       <section className="pt-32 pb-16 px-6">
         <div className="max-w-4xl mx-auto">
           <h1 className="text-3xl md:text-4xl font-semibold text-foreground mb-4">
-            About AnomAlert
+            Our Mission
           </h1>
           <div className="space-y-4 text-muted-foreground text-lg leading-relaxed">
             <p>
@@ -33,7 +33,7 @@ const About = () => {
       <section className="py-16 px-6 border-t border-border">
         <div className="max-w-4xl mx-auto">
           <h2 className="text-2xl font-semibold text-foreground mb-6">
-            About This Project
+            The Challenge We Solve
           </h2>
           <div className="space-y-4 text-muted-foreground leading-relaxed">
             <p>
