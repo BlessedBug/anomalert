@@ -1,7 +1,7 @@
 import { Database, Activity, AlertTriangle, FileSearch, Usb, MonitorSpeaker, Network } from 'lucide-react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
-import logo from '@/assets/logo.png';
+import Logo from '@/components/Logo';
 
 const Index = () => {
   return (
@@ -11,7 +11,7 @@ const Index = () => {
       <section className="pt-32 pb-20 px-6">
         <div className="max-w-4xl mx-auto text-center">
           <div className="flex items-center justify-center gap-3 mb-6">
-            <img src={logo} alt="AnomAlert Logo" className="w-12 h-12" />
+            <Logo size={48} />
           </div>
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-semibold text-foreground mb-4 tracking-tight">
             AnomAlert

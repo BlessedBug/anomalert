@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
 import { Button } from '@/components/ui/button';
 import ThemeToggle from '@/components/ThemeToggle';
-import logo from '@/assets/logo.png';
+import Logo from '@/components/Logo';
 
 const Navbar = () => {
   const location = useLocation();
@@ -46,7 +46,7 @@ const Navbar = () => {
       <div className="max-w-6xl mx-auto px-6">
         <div className="flex items-center justify-between h-16">
           <Link to="/" className="flex items-center gap-2">
-            <img src={logo} alt="AnomAlert Logo" className="w-8 h-8" />
+            <Logo size={32} />
             <span className="font-semibold text-foreground">AnomAlert</span>
           </Link>
 
