@@ -96,8 +96,8 @@ const Dashboard = () => {
       
       {/* Main Dashboard Container */}
       <div className="flex-1 pt-16 flex flex-col">
-        {/* Top Section - 40% */}
-        <div className="h-[40%] border-b border-border flex">
+        {/* Top Section - 40% - Fixed height, no animation */}
+        <div className="h-[40%] min-h-[40%] max-h-[40%] border-b border-border flex flex-shrink-0">
           {/* Left 50% - Users */}
           <div className="w-1/2 border-r border-border p-6 flex flex-col">
             <div className="flex items-center gap-2 mb-4">

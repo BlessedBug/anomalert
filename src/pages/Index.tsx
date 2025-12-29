@@ -25,16 +25,6 @@ const Index = () => {
             suspicious file activity, and abnormal events by analyzing logs and system signals in real time. 
             It provides security teams with early warning capabilities for proactive threat detection.
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button className="bg-primary text-primary-foreground hover:bg-primary/90 px-8 py-6 text-base">
-              Get Started
-              <ArrowRight className="w-4 h-4 ml-2" />
-            </Button>
-            <Button variant="outline" className="border-border text-foreground hover:bg-secondary px-8 py-6 text-base">
-              Read the Docs
-              <ChevronRight className="w-4 h-4 ml-2" />
-            </Button>
-          </div>
         </div>
       </section>
 
@@ -293,16 +283,16 @@ const Index = () => {
             AnomAlert serves both as a functional security monitoring tool and an educational platform 
             for understanding modern threat detection methodologies.
           </p>
-          <div className="flex flex-col sm:flex-row gap-4">
-            <Button className="bg-primary text-primary-foreground hover:bg-primary/90 px-8 py-6 text-base">
-              View Documentation
-              <ArrowRight className="w-4 h-4 ml-2" />
-            </Button>
+          <a 
+            href="https://github.com/BlessedBug/socy" 
+            target="_blank" 
+            rel="noopener noreferrer"
+          >
             <Button variant="outline" className="border-border text-foreground hover:bg-secondary px-8 py-6 text-base">
               GitHub Repository
               <ChevronRight className="w-4 h-4 ml-2" />
             </Button>
-          </div>
+          </a>
         </div>
       </section>
 
