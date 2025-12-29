@@ -55,6 +55,7 @@ const Navbar = () => {
               <Link
                 key={link.path}
                 to={link.path}
+                onClick={(e) => handleNavClick(e, link.path)}
                 className={`text-sm transition-colors ${
                   isActive(link.path)
                     ? 'text-primary'
@@ -104,7 +105,7 @@ const Navbar = () => {
                 <Link
                   key={link.path}
                   to={link.path}
-                  onClick={() => setMobileMenuOpen(false)}
+                  onClick={(e) => handleNavClick(e, link.path)}
                   className={`text-sm transition-colors ${
                     isActive(link.path)
                       ? 'text-primary'
