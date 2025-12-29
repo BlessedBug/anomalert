@@ -1,5 +1,4 @@
-import { Download, Server, Database, Activity, BarChart3, ArrowRight, Shield, Lock, Wifi } from 'lucide-react';
-import { Button } from '@/components/ui/button';
+import { Server, Database, Activity, BarChart3, ArrowRight, Shield, Lock, Wifi } from 'lucide-react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 
@@ -7,7 +6,7 @@ const AgentInfo = () => {
   const workflowSteps = [
     { label: 'Log Collection', icon: Database, color: 'bg-primary' },
     { label: 'Backend Processing', icon: Server, color: 'bg-cyan-500' },
-    { label: 'ML Analysis', icon: Activity, color: 'bg-emerald-500' },
+    { label: 'Analysis', icon: Activity, color: 'bg-emerald-500' },
     { label: 'Dashboard Display', icon: BarChart3, color: 'bg-violet-500' }
   ];
 
@@ -15,189 +14,196 @@ const AgentInfo = () => {
     <div className="min-h-screen bg-background">
       <Navbar />
       
-      {/* Header */}
       <section className="pt-32 pb-16 px-6">
         <div className="max-w-4xl mx-auto">
           <h1 className="text-3xl md:text-4xl font-semibold text-foreground mb-4">
             Agent Documentation
           </h1>
-          <p className="text-muted-foreground text-lg leading-relaxed">
-            Technical documentation for the AnomAlert monitoring agent. This page provides comprehensive 
-            information about how the software operates internally, data collection methodologies, and 
-            how information flows through the system from endpoints to the central dashboard.
-          </p>
+          <div className="space-y-4 text-muted-foreground text-lg leading-relaxed">
+            <p>
+              This page explains what the AnomAlert agent collects and how that data supports 
+              security monitoring. The agent is a software component installed on endpoints 
+              that captures security-relevant events and transmits them to the central backend 
+              for analysis. Understanding what the agent reports helps analysts interpret 
+              dashboard events and investigate detected anomalies.
+            </p>
+            <p>
+              Agents run continuously and collect data from multiple sources on each monitored 
+              machine. The collected data provides the foundation for all detection and alerting 
+              capabilities. Without agents deployed, the dashboard has no visibility into 
+              endpoint activity.
+            </p>
+          </div>
         </div>
       </section>
 
-      {/* Agent Overview */}
       <section className="py-16 px-6 border-t border-border">
         <div className="max-w-4xl mx-auto">
           <h2 className="text-2xl font-semibold text-foreground mb-6">
-            Agent Overview
+            What the Agent Reports
           </h2>
           <div className="space-y-4 text-muted-foreground leading-relaxed">
             <p>
-              The AnomAlert agent is a lightweight software component designed to run on monitored endpoints 
-              with minimal system impact. It collects security-relevant data while maintaining low resource 
-              utilization, ensuring that business operations are not affected by the monitoring process. The 
-              agent architecture supports both Windows and Linux environments, with platform-specific modules 
-              for optimal data collection. Deployment is streamlined through automated installation scripts 
-              that configure the agent based on your environment.
+              The agent monitors four primary data sources on each endpoint. File system events 
+              capture when files are created, modified, deleted, or accessed in monitored 
+              directories. Network connection events record when applications establish inbound 
+              or outbound connections, including destination addresses and ports. Process 
+              execution events log when programs start or stop, including command lines and 
+              parent processes. USB device events track when removable storage is connected or 
+              disconnected.
             </p>
             <p>
-              The agent operates continuously in the background, monitoring predefined data sources and 
-              transmitting collected information to the central analysis backend for processing. Communication 
-              is asynchronous and fault-tolerant, ensuring that temporary network issues do not result in 
-              data loss. The agent includes local buffering capabilities and intelligent retry mechanisms 
-              that guarantee delivery even in challenging network conditions. Configuration updates are 
-              pushed from the central server, allowing administrators to modify collection parameters 
-              without requiring endpoint access.
+              Each event includes metadata that helps analysts understand context. Timestamps 
+              are recorded with millisecond precision. User accounts associated with events are 
+              captured where available. Process identifiers allow correlation between different 
+              event types. File paths and network destinations provide specifics for investigation.
+            </p>
+            <p>
+              The agent applies initial filtering to reduce data volume. Routine system operations 
+              that generate high-frequency, low-value events are excluded or summarized. This 
+              keeps transmission overhead manageable and focuses analyst attention on events that 
+              matter. Filtering rules can be adjusted based on organizational requirements.
             </p>
           </div>
           
           <div className="mt-8 grid md:grid-cols-3 gap-4">
             <div className="glass-card p-5">
               <Shield className="w-6 h-6 text-primary mb-3" />
-              <h3 className="font-medium text-foreground mb-2">Lightweight</h3>
+              <h3 className="font-medium text-foreground mb-2">Low Overhead</h3>
               <p className="text-sm text-muted-foreground">
-                Minimal CPU and memory footprint to avoid impacting system performance during normal 
-                operations.
+                The agent uses minimal CPU and memory to avoid impacting endpoint performance 
+                during normal operations.
               </p>
             </div>
             <div className="glass-card p-5">
               <Lock className="w-6 h-6 text-primary mb-3" />
-              <h3 className="font-medium text-foreground mb-2">Secure</h3>
+              <h3 className="font-medium text-foreground mb-2">Encrypted Transmission</h3>
               <p className="text-sm text-muted-foreground">
-                All data transmission is encrypted using industry-standard protocols to protect 
-                sensitive log information.
+                All data sent from agents to the backend is encrypted using TLS to protect 
+                sensitive log content in transit.
               </p>
             </div>
             <div className="glass-card p-5">
               <Wifi className="w-6 h-6 text-primary mb-3" />
-              <h3 className="font-medium text-foreground mb-2">Reliable</h3>
+              <h3 className="font-medium text-foreground mb-2">Reliable Delivery</h3>
               <p className="text-sm text-muted-foreground">
-                Built-in retry mechanisms and local buffering ensure data delivery even during 
-                network disruptions.
+                Local buffering and retry logic ensure logs reach the backend even during 
+                temporary network disruptions.
               </p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Log Collection Process */}
       <section className="py-16 px-6 bg-card/30 border-t border-border">
         <div className="max-w-4xl mx-auto">
           <h2 className="text-2xl font-semibold text-foreground mb-6">
-            Log Collection Process
+            Types of Monitored Activity
           </h2>
           <div className="space-y-4 text-muted-foreground leading-relaxed">
             <p>
-              The agent collects data from multiple sources to provide comprehensive security monitoring 
-              coverage across your infrastructure. Each collection module is optimized for its specific 
-              data source, ensuring efficient capture with minimal overhead. The modular architecture 
-              allows administrators to enable or disable specific collectors based on their security 
-              requirements and compliance obligations. All collected data is timestamped with millisecond 
-              precision to ensure accurate event correlation.
+              File system monitoring covers directories configured during agent setup. By default 
+              this includes user profile folders, temporary directories, and common download 
+              locations. Events include file creation with path and extension, modification 
+              with byte counts, deletion, and read access. This data supports detection of 
+              ransomware behavior, unauthorized data staging, and policy violations around 
+              sensitive files.
             </p>
-            <ul className="space-y-3 mt-4">
-              <li className="flex items-start gap-3">
-                <div className="w-1.5 h-1.5 rounded-full bg-primary mt-2 flex-shrink-0" />
-                <span><strong className="text-foreground">Windows Event Logs:</strong> Security, System, and Application event logs are monitored for security-relevant events including authentication, privilege changes, and system modifications.</span>
-              </li>
-              <li className="flex items-start gap-3">
-                <div className="w-1.5 h-1.5 rounded-full bg-primary mt-2 flex-shrink-0" />
-                <span><strong className="text-foreground">File System Activity:</strong> File creation, modification, deletion, and access events in monitored directories are tracked to detect unauthorized data access or potential ransomware activity.</span>
-              </li>
-              <li className="flex items-start gap-3">
-                <div className="w-1.5 h-1.5 rounded-full bg-primary mt-2 flex-shrink-0" />
-                <span><strong className="text-foreground">USB Device Events:</strong> Insertion and removal of removable storage devices are logged to support data loss prevention policies and insider threat detection.</span>
-              </li>
-              <li className="flex items-start gap-3">
-                <div className="w-1.5 h-1.5 rounded-full bg-primary mt-2 flex-shrink-0" />
-                <span><strong className="text-foreground">Process Execution:</strong> Tracking of process start and stop events enables behavioral analysis and detection of suspicious command execution patterns.</span>
-              </li>
-            </ul>
+            <p>
+              Network monitoring captures TCP and UDP connections initiated by processes on the 
+              endpoint. Each connection record includes local and remote addresses, ports, 
+              protocol, and the process responsible. DNS queries are also logged where supported. 
+              This data helps identify command and control communication, data exfiltration over 
+              network channels, and unusual connection patterns that may indicate compromise.
+            </p>
+            <p>
+              Process monitoring logs the start and termination of processes. Command line 
+              arguments reveal what parameters were passed to executables. Parent-child 
+              relationships show how processes spawn other processes, which is critical for 
+              detecting injection techniques and living-off-the-land attacks. Unusual parent 
+              processes for common tools often indicate malicious execution chains.
+            </p>
+            <p>
+              USB monitoring tracks storage device connections. Device identifiers allow 
+              correlation across multiple connection events. Timestamp data shows when devices 
+              were connected and for how long. Combined with file system events, this helps 
+              identify data transfer to removable media. Organizations can use this for data 
+              loss prevention and insider threat detection.
+            </p>
           </div>
         </div>
       </section>
 
-      {/* Secure Transmission */}
       <section className="py-16 px-6 border-t border-border">
         <div className="max-w-4xl mx-auto">
           <h2 className="text-2xl font-semibold text-foreground mb-6">
-            Secure Transmission to Backend
+            How Agent Data Supports Incident Review
           </h2>
           <div className="space-y-4 text-muted-foreground leading-relaxed">
             <p>
-              All collected log data is transmitted securely to the central backend infrastructure using 
-              enterprise-grade encryption and authentication. The transmission protocol is designed for 
-              efficiency and reliability, with built-in mechanisms to handle network variability and 
-              ensure data integrity. All communications are mutually authenticated to prevent man-in-the-
-              middle attacks and ensure that data reaches its intended destination.
+              When the detection engine identifies an anomaly, analysts can trace back through 
+              agent data to understand what happened. Correlation across data types provides 
+              context that single-source logs cannot. A suspicious network connection becomes 
+              more significant when combined with unusual file access and an unexpected process 
+              execution around the same time.
             </p>
-            <ul className="space-y-3 mt-4">
-              <li className="flex items-start gap-3">
-                <div className="w-1.5 h-1.5 rounded-full bg-primary mt-2 flex-shrink-0" />
-                <span><strong className="text-foreground">TLS Encryption:</strong> All network communication uses TLS 1.3 encryption with strong cipher suites to protect data in transit from eavesdropping and tampering.</span>
-              </li>
-              <li className="flex items-start gap-3">
-                <div className="w-1.5 h-1.5 rounded-full bg-primary mt-2 flex-shrink-0" />
-                <span><strong className="text-foreground">Authentication:</strong> Agents authenticate with the backend using unique API keys that are securely generated during installation and stored in protected system locations.</span>
-              </li>
-              <li className="flex items-start gap-3">
-                <div className="w-1.5 h-1.5 rounded-full bg-primary mt-2 flex-shrink-0" />
-                <span><strong className="text-foreground">Data Compression:</strong> Log data is compressed before transmission to reduce bandwidth usage and improve transmission speed, particularly beneficial for high-volume environments.</span>
-              </li>
-              <li className="flex items-start gap-3">
-                <div className="w-1.5 h-1.5 rounded-full bg-primary mt-2 flex-shrink-0" />
-                <span><strong className="text-foreground">Retry Logic:</strong> Failed transmissions are queued locally and retried automatically using exponential backoff to avoid overwhelming the network during recovery.</span>
-              </li>
-            </ul>
+            <p>
+              Historical data retention allows investigation of events that occurred before an 
+              alert was raised. Threats often establish persistence and operate quietly before 
+              triggering detection thresholds. Access to past logs helps analysts reconstruct 
+              attack timelines, identify initial access points, and scope the full extent of 
+              compromise.
+            </p>
+            <p>
+              Each log entry includes enough metadata for actionable investigation. Timestamps 
+              enable timeline construction. User accounts show who was logged in. Process IDs 
+              allow correlation with memory analysis if needed. File paths and network 
+              destinations provide concrete artifacts for further analysis or blocking.
+            </p>
+            <p>
+              The dashboard surfaces high-priority events automatically, but analysts can also 
+              search historical logs for specific indicators. Known malicious file hashes, 
+              suspicious domains, or command line patterns can be queried across the collected 
+              data. This supports both reactive incident response and proactive threat hunting.
+            </p>
           </div>
         </div>
       </section>
 
-      {/* ML Analysis Workflow */}
       <section className="py-16 px-6 bg-card/30 border-t border-border">
         <div className="max-w-4xl mx-auto">
           <h2 className="text-2xl font-semibold text-foreground mb-6">
-            Analysis Workflow
+            Collected Metadata Summary
           </h2>
           <div className="space-y-4 text-muted-foreground leading-relaxed">
             <p>
-              The backend analysis engine processes incoming log data through multiple stages designed to 
-              maximize detection accuracy while minimizing false positives. The pipeline is optimized for 
-              low-latency processing, ensuring that alerts are generated within seconds of anomalous 
-              activity occurring on monitored endpoints. Each stage is independently scalable to handle 
-              increasing data volumes as your deployment grows.
+              File events include: file path, file name, extension, operation type, byte count 
+              for modifications, associated process, user account, and timestamp. Network events 
+              include: local address and port, remote address and port, protocol, connection 
+              state, associated process, and timestamp. Process events include: executable path, 
+              command line arguments, process ID, parent process ID, user account, start time, 
+              and end time.
             </p>
-            <ul className="space-y-3 mt-4">
-              <li className="flex items-start gap-3">
-                <div className="w-1.5 h-1.5 rounded-full bg-primary mt-2 flex-shrink-0" />
-                <span><strong className="text-foreground">Data Normalization:</strong> Raw logs are parsed and normalized into a consistent format that enables uniform analysis regardless of the originating data source or platform.</span>
-              </li>
-              <li className="flex items-start gap-3">
-                <div className="w-1.5 h-1.5 rounded-full bg-primary mt-2 flex-shrink-0" />
-                <span><strong className="text-foreground">Feature Extraction:</strong> Relevant features are extracted for anomaly detection algorithms, including temporal patterns, frequency metrics, and behavioral indicators.</span>
-              </li>
-              <li className="flex items-start gap-3">
-                <div className="w-1.5 h-1.5 rounded-full bg-primary mt-2 flex-shrink-0" />
-                <span><strong className="text-foreground">Anomaly Detection:</strong> Statistical models and machine learning algorithms identify deviations from established baselines that may indicate security threats.</span>
-              </li>
-              <li className="flex items-start gap-3">
-                <div className="w-1.5 h-1.5 rounded-full bg-primary mt-2 flex-shrink-0" />
-                <span><strong className="text-foreground">Risk Scoring:</strong> Detected anomalies are assigned severity scores based on potential impact, confidence levels, and contextual factors to prioritize analyst attention.</span>
-              </li>
-            </ul>
+            <p>
+              USB events include: device identifier, device type, manufacturer string if 
+              available, connection timestamp, and disconnection timestamp. Additional metadata 
+              may be collected depending on agent configuration and operating system capabilities. 
+              All collected data is structured for efficient query and analysis.
+            </p>
+            <p>
+              Data volume depends on endpoint activity. Busy workstations generate more events 
+              than idle servers. Filtering rules reduce volume by excluding routine low-value 
+              events. Compression reduces transmission size. Retention policies control how 
+              long historical data remains available for investigation.
+            </p>
           </div>
         </div>
       </section>
 
-      {/* Visual Workflow Diagram */}
       <section className="py-16 px-6 border-t border-border">
         <div className="max-w-4xl mx-auto">
           <h2 className="text-2xl font-semibold text-foreground mb-8">
-            System Workflow Diagram
+            Data Flow Diagram
           </h2>
           
           <div className="glass-card p-8">
@@ -217,32 +223,12 @@ const AgentInfo = () => {
               ))}
             </div>
             
-            {/* Mobile arrows */}
             <div className="md:hidden flex flex-col items-center gap-2 mt-4">
               <p className="text-xs text-muted-foreground text-center">
-                Log Collection → Backend Processing → ML Analysis → Dashboard Display
+                Log Collection → Backend Processing → Analysis → Dashboard Display
               </p>
             </div>
           </div>
-        </div>
-      </section>
-
-      {/* Download Section */}
-      <section className="py-16 px-6 bg-card/30 border-t border-border">
-        <div className="max-w-4xl mx-auto">
-          <h2 className="text-2xl font-semibold text-foreground mb-6">
-            Download Agent Software
-          </h2>
-          <p className="text-muted-foreground leading-relaxed mb-6">
-            Download the AnomAlert agent to begin monitoring your endpoints. The agent is available for 
-            Windows and Linux systems and includes automated installation scripts for streamlined 
-            deployment. Installation typically completes in under five minutes and requires minimal 
-            configuration for standard deployments.
-          </p>
-          <Button className="bg-primary text-primary-foreground hover:bg-primary/90">
-            <Download className="w-4 h-4 mr-2" />
-            Download Agent (Windows)
-          </Button>
         </div>
       </section>
 

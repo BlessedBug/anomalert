@@ -47,7 +47,7 @@ const Contact = () => {
       setIsSubmitted(true);
       toast({
         title: "Message Sent",
-        description: "Thank you for your interest. Our team will contact you shortly.",
+        description: "Your request has been received. We will respond within one business day.",
       });
     }
   };
@@ -70,11 +70,11 @@ const Contact = () => {
               <CheckCircle className="w-8 h-8 text-primary" />
             </div>
             <h1 className="text-2xl font-semibold text-foreground mb-4">
-              Thank You
+              Request Received
             </h1>
             <p className="text-muted-foreground mb-8">
-              Your message has been received. Our team will review your inquiry and respond 
-              within one business day.
+              Your message has been submitted. We will review your requirements and respond 
+              within one business day with next steps.
             </p>
             <Button
               onClick={() => {
@@ -84,7 +84,7 @@ const Contact = () => {
               variant="outline"
               className="border-border text-foreground hover:bg-secondary"
             >
-              Send Another Message
+              Submit Another Request
             </Button>
           </div>
         </section>
@@ -97,30 +97,50 @@ const Contact = () => {
     <div className="min-h-screen bg-background">
       <Navbar />
       
-      {/* Header */}
       <section className="pt-32 pb-16 px-6">
         <div className="max-w-4xl mx-auto">
           <h1 className="text-3xl md:text-4xl font-semibold text-foreground mb-4">
-            Contact Us
+            Contact
           </h1>
-          <p className="text-muted-foreground text-lg leading-relaxed">
-            Interested in AnomAlert for your organization? Have questions about our platform 
-            capabilities or deployment options? Complete the form below and our team will 
-            reach out to discuss how AnomAlert can address your security monitoring needs.
-          </p>
+          <div className="space-y-4 text-muted-foreground text-lg leading-relaxed">
+            <p>
+              Use the form below to request access or ask questions about the platform. 
+              Provide your organization name, contact email, and team size so we can 
+              understand your requirements. We will respond within one business day to 
+              discuss deployment options and answer technical questions.
+            </p>
+            <p>
+              If you are evaluating the platform for your security operations, include 
+              details about your current monitoring setup and what gaps you are trying 
+              to address. This helps us provide relevant information about how AnomAlert 
+              integrates with existing infrastructure and what data sources are supported.
+            </p>
+          </div>
         </div>
       </section>
 
-      {/* Contact Form */}
       <section className="py-16 px-6">
         <div className="max-w-lg mx-auto">
           <div className="glass-card p-8">
+            <div className="space-y-4 text-muted-foreground text-sm leading-relaxed mb-6">
+              <p>
+                Deployment typically involves installing agents on monitored endpoints and 
+                configuring the central backend. Agent installation is automated and takes 
+                less than five minutes per machine. The backend can be hosted on your 
+                infrastructure or accessed through our managed service.
+              </p>
+              <p>
+                After submitting this form, we will schedule a technical discussion to 
+                review your environment, explain integration requirements, and answer 
+                questions about data collection, retention, and analysis capabilities.
+              </p>
+            </div>
+            
             <form onSubmit={handleSubmit} className="space-y-6">
-              {/* Company Name */}
               <div className="space-y-2">
                 <Label htmlFor="companyName" className="text-foreground flex items-center gap-2">
                   <Building2 className="w-4 h-4 text-muted-foreground" />
-                  Company Name
+                  Organization Name
                 </Label>
                 <Input
                   id="companyName"
@@ -128,7 +148,7 @@ const Contact = () => {
                   type="text"
                   value={formData.companyName}
                   onChange={handleChange}
-                  placeholder="Enter your company or organization name"
+                  placeholder="Enter your organization name"
                   className="bg-secondary/50 border-border focus:border-primary"
                 />
                 {errors.companyName && (
@@ -136,7 +156,6 @@ const Contact = () => {
                 )}
               </div>
 
-              {/* Email */}
               <div className="space-y-2">
                 <Label htmlFor="email" className="text-foreground flex items-center gap-2">
                   <Mail className="w-4 h-4 text-muted-foreground" />
@@ -148,7 +167,7 @@ const Contact = () => {
                   type="email"
                   value={formData.email}
                   onChange={handleChange}
-                  placeholder="Enter your email address"
+                  placeholder="Enter your work email"
                   className="bg-secondary/50 border-border focus:border-primary"
                 />
                 {errors.email && (
@@ -156,11 +175,10 @@ const Contact = () => {
                 )}
               </div>
 
-              {/* Team Size */}
               <div className="space-y-2">
                 <Label htmlFor="teamSize" className="text-foreground flex items-center gap-2">
                   <Users className="w-4 h-4 text-muted-foreground" />
-                  Team Size
+                  Number of Endpoints
                 </Label>
                 <Input
                   id="teamSize"
@@ -169,7 +187,7 @@ const Contact = () => {
                   min="1"
                   value={formData.teamSize}
                   onChange={handleChange}
-                  placeholder="Number of employees"
+                  placeholder="Approximate number of machines to monitor"
                   className="bg-secondary/50 border-border focus:border-primary"
                 />
                 {errors.teamSize && (
@@ -177,13 +195,12 @@ const Contact = () => {
                 )}
               </div>
 
-              {/* Submit Button */}
               <Button
                 type="submit"
                 className="w-full bg-primary text-primary-foreground hover:bg-primary/90"
               >
                 <Send className="w-4 h-4 mr-2" />
-                Send Message
+                Submit Request
               </Button>
             </form>
           </div>
