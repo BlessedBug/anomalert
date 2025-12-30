@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import { createContext, useContext, useState, useEffect, ReactNode, useCallback } from 'react';
 
 interface User {
   username: string;
@@ -8,8 +8,9 @@ interface AuthContextType {
   user: User | null;
   isLoading: boolean;
   isAuthenticated: boolean;
-  login: (username: string) => void;
-  logout: () => Promise<void>;
+  loginBackend: (username: string, password: string) => Promise<{ success: boolean; message?: string }>;
+  logoutBackend: () => Promise<void>;
+  checkSession: () => Promise<void>;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -20,22 +21,64 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<User | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
-  useEffect(() => {
-    // Check if user is stored in localStorage
-    const storedUser = localStorage.getItem('anomalert_user');
-    if (storedUser) {
-      setUser(JSON.parse(storedUser));
+  // Check session with backend on load and page refresh
+  const checkSession = useCallback(async () => {
+    try {
+      const response = await fetch(`${API_BASE_URL}/api/session`, {
+        method: 'GET',
+        credentials: 'include',
+      });
+      
+      if (response.ok) {
+        const data = await response.json();
+        if (data.authenticated && data.user) {
+          setUser({ username: data.user.username || data.user.email });
+        } else {
+          setUser(null);
+        }
+      } else {
+        setUser(null);
+      }
+    } catch (error) {
+      console.error('Session check error:', error);
+      setUser(null);
+    } finally {
+      setIsLoading(false);
     }
-    setIsLoading(false);
   }, []);
 
-  const login = (username: string) => {
-    const userData = { username };
-    setUser(userData);
-    localStorage.setItem('anomalert_user', JSON.stringify(userData));
-  };
+  // Check session on mount
+  useEffect(() => {
+    checkSession();
+  }, [checkSession]);
 
-  const logout = async () => {
+  // Login via backend - sets HttpOnly cookie
+  const loginBackend = useCallback(async (username: string, password: string): Promise<{ success: boolean; message?: string }> => {
+    try {
+      const response = await fetch(`${API_BASE_URL}/api/login`, {
+        method: 'POST',
+        credentials: 'include',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username, password }),
+      });
+      
+      const data = await response.json();
+      
+      if (data.success) {
+        // After successful login, verify session with backend
+        await checkSession();
+        return { success: true };
+      } else {
+        return { success: false, message: data.message || 'Login failed' };
+      }
+    } catch (error: any) {
+      console.error('Login error:', error);
+      return { success: false, message: error.message || 'An error occurred during login' };
+    }
+  }, [checkSession]);
+
+  // Logout via backend - clears HttpOnly cookie
+  const logoutBackend = useCallback(async () => {
     try {
       await fetch(`${API_BASE_URL}/api/logout`, {
         method: 'POST',
@@ -43,13 +86,21 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       });
     } catch (error) {
       console.error('Logout error:', error);
+    } finally {
+      // Always clear frontend state
+      setUser(null);
     }
-    setUser(null);
-    localStorage.removeItem('anomalert_user');
-  };
+  }, []);
 
   return (
-    <AuthContext.Provider value={{ user, isLoading, isAuthenticated: !!user, login, logout }}>
+    <AuthContext.Provider value={{ 
+      user, 
+      isLoading, 
+      isAuthenticated: !!user, 
+      loginBackend, 
+      logoutBackend,
+      checkSession 
+    }}>
       {children}
     </AuthContext.Provider>
   );
