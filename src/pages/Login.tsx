@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { Lock, Eye, EyeOff, User } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -7,15 +7,26 @@ import { Label } from '@/components/ui/label';
 import Navbar from '@/components/Navbar';
 import { useToast } from '@/hooks/use-toast';
 import Logo from '@/components/Logo';
+import { useAuth } from '@/contexts/AuthContext';
+
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://13.61.232.203';
 
 const Login = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
+  const { isAuthenticated, login } = useAuth();
   
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+
+  // Redirect if already logged in
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate('/dashboard');
+    }
+  }, [isAuthenticated, navigate]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -31,19 +42,30 @@ const Login = () => {
 
     setIsLoading(true);
     
-    // TODO: Connect to Flask backend /api/login
     try {
-      // Replace with actual API call:
-      // const response = await fetch('/api/login', {
-      //   method: 'POST',
-      //   headers: { 'Content-Type': 'application/json' },
-      //   body: JSON.stringify({ username, password })
-      // });
-      
-      toast({
-        title: 'Login Attempted',
-        description: 'Backend not connected yet.',
+      const response = await fetch(`${API_BASE_URL}/api/login`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
+        body: JSON.stringify({ username, password })
       });
+      
+      const data = await response.json();
+      
+      if (data.success) {
+        login(username);
+        toast({
+          title: 'Success',
+          description: 'Login successful!',
+        });
+        navigate('/dashboard');
+      } else {
+        toast({
+          title: 'Error',
+          description: data.message || 'Invalid credentials',
+          variant: 'destructive',
+        });
+      }
     } catch (error) {
       toast({
         title: 'Error',
