@@ -9,7 +9,7 @@ import Logo from '@/components/Logo';
 const Navbar = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const { user, signOut } = useAuth();
+  const { user, logout } = useAuth();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const publicLinks = [
@@ -36,7 +36,7 @@ const Navbar = () => {
   };
 
   const handleSignOut = async () => {
-    await signOut();
+    await logout();
     navigate('/');
     setMobileMenuOpen(false);
   };
