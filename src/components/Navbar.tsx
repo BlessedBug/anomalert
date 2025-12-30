@@ -9,7 +9,7 @@ import Logo from '@/components/Logo';
 const Navbar = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const { user, logout } = useAuth();
+  const { user, isAuthenticated, logoutBackend } = useAuth();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const publicLinks = [
@@ -23,7 +23,7 @@ const Navbar = () => {
     { path: '/dashboard', label: 'Dashboard' },
   ];
 
-  const navLinks = user ? [...publicLinks, ...protectedLinks] : publicLinks;
+  const navLinks = isAuthenticated ? [...publicLinks, ...protectedLinks] : publicLinks;
 
   const isActive = (path: string) => location.pathname === path;
 
@@ -36,7 +36,7 @@ const Navbar = () => {
   };
 
   const handleSignOut = async () => {
-    await logout();
+    await logoutBackend();
     navigate('/');
     setMobileMenuOpen(false);
   };
@@ -65,7 +65,7 @@ const Navbar = () => {
                 {link.label}
               </Link>
             ))}
-            {user ? (
+            {isAuthenticated ? (
               <Button
                 variant="ghost"
                 size="sm"
@@ -115,7 +115,7 @@ const Navbar = () => {
                   {link.label}
                 </Link>
               ))}
-              {user ? (
+              {isAuthenticated ? (
                 <button
                   onClick={handleSignOut}
                   className="text-sm text-muted-foreground hover:text-foreground text-left flex items-center gap-2"
