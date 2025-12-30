@@ -24,7 +24,7 @@ const Login = () => {
   // Redirect if already logged in
   useEffect(() => {
     if (isAuthenticated) {
-      navigate('/dashboard');
+      navigate('/dashboard', { replace: true });
     }
   }, [isAuthenticated, navigate]);
 
@@ -58,7 +58,7 @@ const Login = () => {
           title: 'Success',
           description: 'Login successful!',
         });
-        navigate('/dashboard');
+        // Navigation will happen via the useEffect when isAuthenticated becomes true
       } else {
         toast({
           title: 'Error',
