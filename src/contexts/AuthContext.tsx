@@ -15,6 +15,8 @@ interface AuthContextType {
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
+// IMPORTANT: Set this to your Flask backend URL
+// For production, this should be HTTPS to avoid mixed-content issues
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://13.61.232.203';
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
@@ -27,6 +29,9 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       const response = await fetch(`${API_BASE_URL}/api/session`, {
         method: 'GET',
         credentials: 'include',
+        headers: {
+          'Content-Type': 'application/json',
+        },
       });
       
       if (response.ok) {
@@ -40,7 +45,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         setUser(null);
       }
     } catch (error) {
-      console.error('Session check error:', error);
+      // Network error - likely CORS or backend not reachable
+      console.error('Session check failed (CORS or network issue):', error);
       setUser(null);
     } finally {
       setIsLoading(false);
@@ -72,8 +78,11 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         return { success: false, message: data.message || 'Login failed' };
       }
     } catch (error: any) {
-      console.error('Login error:', error);
-      return { success: false, message: error.message || 'An error occurred during login' };
+      console.error('Login error (CORS or network issue):', error);
+      return { 
+        success: false, 
+        message: 'Cannot reach server. Check if backend is running with HTTPS and CORS configured.' 
+      };
     }
   }, [checkSession]);
 
@@ -83,6 +92,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       await fetch(`${API_BASE_URL}/api/logout`, {
         method: 'POST',
         credentials: 'include',
+        headers: { 'Content-Type': 'application/json' },
       });
     } catch (error) {
       console.error('Logout error:', error);
