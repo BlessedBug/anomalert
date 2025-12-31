@@ -1,7 +1,9 @@
 // API service layer for Flask backend integration
 // Configure this to point to your EC2 Flask backend
 
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000';
+// IMPORTANT: Set this to your Flask backend URL
+// For production, this should be HTTPS to avoid mixed-content issues
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://13.61.232.203';
 
 // Types for API responses
 export interface User {
